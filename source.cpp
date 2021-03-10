@@ -1,10 +1,9 @@
 #include <iostream>
-#include <stdio.h>
 #include <fstream>
 
 #define EMPTY_SYMBOL '_'
 #define DEL_SYMBOL '*'
-#define TERMINATING_INSTRACTION_INDEX 0
+#define TERMINATING_INSTRUCTION_INDEX 0
 
 struct Node {
 	char symbol;
@@ -40,7 +39,7 @@ public:
 
 	void run(int instruction_index, char *alphabet, Instruction **instructions)
 	{
-		while (instruction_index != TERMINATING_INSTRACTION_INDEX) {
+		while (instruction_index != TERMINATING_INSTRUCTION_INDEX) {
 			for (int symbol_index = 0; symbol_index < alphabet[symbol_index]; symbol_index++) {
 				if (alphabet[symbol_index] == current->symbol) {
 					current->symbol = instructions[instruction_index][symbol_index].symbol;
@@ -170,7 +169,7 @@ void inline generate(char *alphabet, int alphabet_size, Instruction **instructio
 
 				for (int i = 0; i < alphabet_size; i++) {
 					if (EMPTY_SYMBOL == alphabet[i]) {
-						instructions[offset][i].instruction = terminating ? TERMINATING_INSTRACTION_INDEX : 1;
+						instructions[offset][i].instruction = terminating ? TERMINATING_INSTRUCTION_INDEX : 1;
 						instructions[offset][i].symbol = EMPTY_SYMBOL;
 						instructions[offset][i].direction = 'R';
 					} else {
@@ -255,7 +254,7 @@ void inline generate(char *alphabet, int alphabet_size, Instruction **instructio
 
 				for (int i = 0; i < alphabet_size; i++) {
 					if (EMPTY_SYMBOL == alphabet[i]) {
-						instructions[offset][i].instruction = terminating ? TERMINATING_INSTRACTION_INDEX : 1;
+						instructions[offset][i].instruction = terminating ? TERMINATING_INSTRUCTION_INDEX : 1;
 						instructions[offset][i].symbol = EMPTY_SYMBOL;
 						instructions[offset][i].direction = 'R';
 					} else {
@@ -379,7 +378,7 @@ end_of_left:
 			for (int i = 0; i < alphabet_size; i++) {
 
 				if (EMPTY_SYMBOL == alphabet[i]) {
-					instructions[offset + alphabet_size][i].instruction = terminating ? TERMINATING_INSTRACTION_INDEX : 1;
+					instructions[offset + alphabet_size][i].instruction = terminating ? TERMINATING_INSTRUCTION_INDEX : 1;
 					instructions[offset + alphabet_size][i].symbol = EMPTY_SYMBOL;
 					instructions[offset + alphabet_size][i].direction = 'R';
 				} else if (DEL_SYMBOL == alphabet[i]) {
@@ -471,7 +470,7 @@ end_of_right:
 
 		for (int i = 0; i < alphabet_size; i++) {
 			if (EMPTY_SYMBOL == alphabet[i]) {
-				instructions[offset][i].instruction = terminating ? TERMINATING_INSTRACTION_INDEX : 1;
+				instructions[offset][i].instruction = terminating ? TERMINATING_INSTRUCTION_INDEX : 1;
 				instructions[offset][i].symbol = EMPTY_SYMBOL;
 				instructions[offset][i].direction = 'R';
 			} else {
@@ -530,7 +529,7 @@ int main() {
 
 	for (int i = 0; i < alphabet_size; i++) {
 		instructions[offset][i].symbol = alphabet[i];
-		instructions[offset][i].instruction = TERMINATING_INSTRACTION_INDEX;
+		instructions[offset][i].instruction = TERMINATING_INSTRUCTION_INDEX;
 		instructions[offset][i].direction = EMPTY_SYMBOL;
 	}
 
@@ -591,7 +590,6 @@ int main() {
 
 	/* ... WORD MODIFICATION ROUTINE ... */
 
-	output_file.flush();
 	output_file << "\n\n";
 
 	TuringMachine machine(word);
