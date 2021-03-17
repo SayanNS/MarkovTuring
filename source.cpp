@@ -119,9 +119,7 @@ void inline generate(std::string alphabet, MyVector<MyVector<Instruction>> &inst
 		int first_offset = offset;
 		
 		if (r_offset < right.size()) {
-
 			for (int i = 0; i < alphabet.size(); i++) {
-
 				if (left[l_offset] == alphabet[i]) {
 					instructions[offset][i].instruction = offset + 2;
 					instructions[offset][i].symbol = right[r_offset];
@@ -146,9 +144,7 @@ void inline generate(std::string alphabet, MyVector<MyVector<Instruction>> &inst
 			offset += 2;
 
 			for (l_offset++, r_offset++; l_offset < left.size() && r_offset < right.size(); l_offset++, r_offset++) {
-
 				for (int i = 0; i < alphabet.size(); i++) {
-
 					if (left[l_offset] == alphabet[i]) {
 						instructions[offset][i].instruction = offset + 2;
 						instructions[offset][i].symbol = right[r_offset];
@@ -174,7 +170,6 @@ void inline generate(std::string alphabet, MyVector<MyVector<Instruction>> &inst
 			}
 
 			if (l_offset == left.size() && r_offset == right.size()) {
-
 				for (int i = 0; i < alphabet.size(); i++) {
 					if (EMPTY_SYMBOL == alphabet[i]) {
 						instructions[offset][i].instruction = offset + 1;
@@ -222,9 +217,7 @@ void inline generate(std::string alphabet, MyVector<MyVector<Instruction>> &inst
 			}
 
 			if (l_offset == left.size()) {
-
 				for (;r_offset < right.size(); r_offset++) {
-
 					for (int i = 0; i < alphabet.size(); i++) {
 						instructions[offset][i].instruction = offset + i + 1;
 						instructions[offset][i].symbol = DEL_SYMBOL;
@@ -234,9 +227,7 @@ void inline generate(std::string alphabet, MyVector<MyVector<Instruction>> &inst
 					offset++;
 
 					for (int i = 0; i < alphabet.size() - 1; i++) {
-
 						for (int j = 0; j < alphabet.size(); j++) {
-
 							instructions[offset + i][j].instruction = offset + j;
 							instructions[offset + i][j].symbol = alphabet[i];
 							instructions[offset + i][j].direction = 'R';
@@ -339,9 +330,7 @@ void inline generate(std::string alphabet, MyVector<MyVector<Instruction>> &inst
 end_of_left:
 			
 			for (; l_offset < left.size(); l_offset++) {
-
 				for (int i = 0; i < alphabet.size(); i++) {
-
 					if (left[l_offset] == alphabet[i]) {
 						instructions[offset][i].instruction = offset + 2;
 						instructions[offset][i].symbol = DEL_SYMBOL;
@@ -367,7 +356,6 @@ end_of_left:
 			}
 
 			for (int i = 0; i < alphabet.size(); i++) {
-
 				if (EMPTY_SYMBOL == alphabet[i]) {
 					instructions[offset][i].instruction = offset + i + 1;
 					instructions[offset][i].symbol = EMPTY_SYMBOL;
@@ -382,9 +370,7 @@ end_of_left:
 			offset++;
 			
 			for (int i = 0; i < alphabet.size(); i++) {
-
 				for (int j = 0; j < alphabet.size(); j++) {
-
 					if (DEL_SYMBOL == alphabet[j]) {
 						instructions[offset + i][j].instruction = offset + alphabet.size();
 						instructions[offset + i][j].symbol = alphabet[i];
@@ -398,7 +384,6 @@ end_of_left:
 			}
 
 			for (int i = 0; i < alphabet.size(); i++) {
-
 				if (EMPTY_SYMBOL == alphabet[i]) {
 					instructions[offset + alphabet.size()][i].instruction = terminating ? TERMINATING_INSTRUCTION_INDEX : 1;
 					instructions[offset + alphabet.size()][i].symbol = EMPTY_SYMBOL;
@@ -450,9 +435,7 @@ end_of_right:
 			offset++;
 
 			for (int i = 0; i < alphabet.size() - 1; i++) {
-
 				for (int j = 0; j < alphabet.size(); j++) {
-
 					instructions[offset + i][j].instruction = offset + j;
 					instructions[offset + i][j].symbol = alphabet[i];
 					instructions[offset + i][j].direction = 'R';
