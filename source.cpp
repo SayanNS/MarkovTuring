@@ -54,7 +54,7 @@ public:
 		current = head->next;
 	}
 
-	void run(int instruction_index, std::string alphabet, MyVector<MyVector<Instruction>> instructions)
+	void run(int instruction_index, std::string alphabet, std::vector<std::vector<Instruction>> &instructions)
 	{
 		while (instruction_index != TERMINATING_INSTRUCTION_INDEX) {
 			for (int symbol_index = 0; symbol_index < alphabet.size(); symbol_index++) {
@@ -593,7 +593,8 @@ std::ofstream output_file;
 	/* ... WORD MODIFICATION ROUTINE ... */
 
 	TuringMachine machine(word);
-	machine.run(1, alphabet, instructions);
+	// std::vector<std::vector<Instruction>> *ins = reinterpret_cast<std::vector<std::vector<Instruction>> *>(&instructions);
+	machine.run(1, alphabet, *reinterpret_cast<std::vector<std::vector<Instruction>> *>(&instructions));
 	machine.outputList(output_file);
 
 	output_file.close();
