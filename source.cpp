@@ -78,11 +78,11 @@ public:
 	void outputList(std::ostream &output_stream)
 	{
 		for (Node *node = head->next; node != tail; node = node->next) {
-
 			if (node->symbol != EMPTY_SYMBOL) {
 				output_stream << node->symbol;
 			}
 		}
+		output_stream << '\n';
 	}
 
 	void addbeg(char symbol)
@@ -90,7 +90,6 @@ public:
 		Node *node = new Node;
 		node->symbol = symbol;
 		node->prev = head->prev;
-
 		head->prev = node;
 		node->next = head;
 		head = node;
@@ -101,7 +100,6 @@ public:
 		Node *node = new Node;
 		node->symbol = symbol;
 		node->next = tail->next;
-
 		tail->next = node;
 		node->prev = tail;
 		tail = node;
@@ -328,7 +326,6 @@ void inline generate(std::string alphabet, MyVector<MyVector<Instruction>> &inst
 			l_offset++;
 			offset += 2;
 end_of_left:
-			
 			for (; l_offset < left.size(); l_offset++) {
 				for (int i = 0; i < alphabet.size(); i++) {
 					if (left[l_offset] == alphabet[i]) {
@@ -423,9 +420,7 @@ end_of_left:
 
 	} else {
 end_of_right:
-
 		for (;r_offset < right.size(); r_offset++) {
-
 			for (int i = 0; i < alphabet.size(); i++) {
 				instructions[offset][i].instruction = offset + i + 1;
 				instructions[offset][i].symbol = DEL_SYMBOL;
@@ -593,9 +588,10 @@ std::ofstream output_file;
 	/* ... WORD MODIFICATION ROUTINE ... */
 
 	TuringMachine machine(word);
-	// std::vector<std::vector<Instruction>> *ins = reinterpret_cast<std::vector<std::vector<Instruction>> *>(&instructions);
+	// std::vector<std::vector<Instruction>> *casted_vector = reinterpret_cast<std::vector<std::vector<Instruction>> *>(&instructions);
 	machine.run(1, alphabet, *reinterpret_cast<std::vector<std::vector<Instruction>> *>(&instructions));
 	machine.outputList(output_file);
+	machine.outputList(std::cout);
 
 	output_file.close();
 	return 0;
