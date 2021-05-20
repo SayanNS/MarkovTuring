@@ -485,13 +485,13 @@ end_of_right:
 }
 
 int main() {
-	/* ... INSTRUCTIONS GENERATING ROUTINE ... */
+	/* ... INSTRUCTIONS GENERATION ROUTINE ... */
 	
 	std::ifstream input_file;
-	input_file.open("MarkovAlgorithms.txt");
+	input_file.open("markov.txt");
 	if (!input_file) {
 		std::cerr << "Error: could not open input file\n";
-		return 0;
+		return EXIT_FAILURE;
 	}
 
 	std::string alphabet;
@@ -536,63 +536,57 @@ int main() {
 
 	/* ... INSTRUCTIONS PRINT ROUTINE ... */
 
-std::ofstream output_file;
-	output_file.open("TuringInstructions.txt");
-
 	int num = 0;
 	for (int i = 1; i < instructions.size(); i *= 10, num++); // Get how many numbers offset has 
 
 	int number_counter = 0;
 	int offset_counter = 1;
 
-	output_file << "   ";
+	std::cout << "   ";
 
 	for (int numbers = 1; numbers < instructions.size(); numbers *= 10, number_counter++) {
 
 		for (;offset_counter < numbers; offset_counter++) {
 
-			output_file << "    " << offset_counter;
+			std::cout << "    " << offset_counter;
 			for (int k = number_counter; k < num + 1; k++) {
-				output_file << ' ';
+				std::cout << ' ';
 			}
 		}
 	}
 
 	for (; offset_counter < instructions.size(); offset_counter++) {
 
-		output_file << "    " << offset_counter;
+		std::cout << "    " << offset_counter;
 		for (int k = number_counter; k < num + 1; k++) {
-			output_file << ' ';
+			std::cout << ' ';
 		}
 	}
 
 	for (int i = 0; i < alphabet.size(); i++) {
 
-		output_file << '\n';
-		output_file << alphabet[i] << "  ";
+		std::cout << '\n';
+		std::cout << alphabet[i] << "  ";
 
 		for (int j = 1; j < instructions.size(); j++) {
-			output_file << instructions[j][i].symbol << ',' << instructions[j][i].direction << ',';
-			int off = (int) output_file.tellp();
-			output_file << instructions[j][i].instruction;
-			off = (int) output_file.tellp() - off;
+			std::cout << instructions[j][i].symbol << ',' << instructions[j][i].direction << ',';
+			int off = (int) std::cout.tellp();
+			std::cout << instructions[j][i].instruction;
+			off = (int) std::cout.tellp() - off;
 
 			for (int k = off; k < num + 1; k++) {
-				output_file << ' ';
+				std::cout << ' ';
 			}
 		}
 	}
 
-	output_file << "\n";
+	std::cout << "\n";
 
 	/* ... WORD MODIFICATION ROUTINE ... */
 
 	TuringMachine machine(word);
-	// std::vector<std::vector<Instruction>> *casted_vector = reinterpret_cast<std::vector<std::vector<Instruction>> *>(&instructions);
 	machine.run(1, alphabet, *reinterpret_cast<std::vector<std::vector<Instruction>> *>(&instructions));
-	machine.outputList(output_file);
 	machine.outputList(std::cout);
 
-	output_file.close();
-	return 0;
+	return EXIT_SUCCESS;
 }
